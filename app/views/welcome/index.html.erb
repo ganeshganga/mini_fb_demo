@@ -1,0 +1,44 @@
+<h1>mini_fb Test App</h1>
+
+<h2>Step 1: Login</h2>
+
+<% if @logged_in %>
+    You are already logged in.
+<% end %>
+<%= link_to "Login", @oauth_url %>
+
+<h2>Step 2: View my stuff</h2>
+
+<ul>
+    <li><%= link_to "Me", :action=>"show", :id=>"me" %></li>
+    <li><%= link_to "My News Feed", :action=>"show", :id=>"me", :type=>"home" %></li>
+    <li><%= link_to "My Wall", :action=>"show", :id=>"me", :type=>"feed" %></li>
+    <li><%= link_to "My Friends", :action=>"show", :id=>"me", :type=>"friends" %></li>
+</ul>
+
+<h2>Step 3: Post Stuff</h2>
+
+<% form_tag :action=>"post" do %>
+
+    To: <%= select_tag "id", options_for_select(@post_tos) %>
+    <br/>
+
+    Type: <%= select_tag "type", options_for_select(@post_types) %>
+    <br/>
+
+    Msg: <%= text_area_tag "message" %>
+
+    <%= submit_tag "Post Away" %>
+    <br/>
+
+<% end %>
+
+<h2>Step 4: FQL</h2>
+
+Does anybody use FQL??
+
+<% form_tag :action=>"fql" do %>
+    Enter query:<br/>
+    <%= text_area_tag "q", "", :rows=>4, :cols=>50 %>
+    <%= submit_tag "Submit" %>
+<% end %>
